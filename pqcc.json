@@ -1,0 +1,31 @@
+{
+    "version": "0.4.0",
+    "description": "Governance dashboard for pqdx state files",
+    "homepage": "https://piqued.cc",
+    "license": "Proprietary",
+    "depends": "nodejs",
+    "url": "https://registry.npmjs.org/pqcc/-/pqcc-0.4.0.tgz",
+    "hash": "sha256:a000e3bdd3289b4aca2549d04c89da2caa434a8661851ba283c9edaab742b176",
+    "installer": {
+        "script": [
+            "npm install -g pqcc@$version --prefix \"$dir\""
+        ]
+    },
+    "bin": "node_modules/.bin/pqcc.cmd",
+    "uninstaller": {
+        "script": [
+            "npm uninstall -g pqcc --prefix \"$dir\""
+        ]
+    },
+    "checkver": {
+        "url": "https://registry.npmjs.org/pqcc/latest",
+        "jsonpath": "$.version"
+    },
+    "autoupdate": {
+        "url": "https://registry.npmjs.org/pqcc/-/pqcc-$version.tgz",
+        "hash": {
+            "url": "https://registry.npmjs.org/pqcc/$version",
+            "jsonpath": "$.dist.shasum"
+        }
+    }
+}
