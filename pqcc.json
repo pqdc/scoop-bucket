@@ -1,22 +1,42 @@
 {
-    "version": "0.4.0",
-    "description": "Governance dashboard for pqdx state files",
+    "version": "0.5.2",
+    "description": "The pqdx governance dashboard. Load your {project}.state.yaml and navigate it.",
     "homepage": "https://piqued.cc",
-    "license": "Proprietary",
-    "depends": "nodejs",
-    "url": "https://registry.npmjs.org/pqcc/-/pqcc-0.4.0.tgz",
-    "hash": "sha256:a000e3bdd3289b4aca2549d04c89da2caa434a8661851ba283c9edaab742b176",
-    "installer": {
-        "script": [
-            "npm install -g pqcc@$version --prefix \"$dir\""
+    "license": {
+        "identifier": "Freeware",
+        "url": "https://piqued.cc/license"
+    },
+    "notes": [
+        "pqcc runs on Node.js. Any supported Node.js LTS on PATH works (nodejs.org installer, nvm, volta, fnm, or 'scoop install nodejs-lts').",
+        "Run 'pqcc' to start the dashboard at http://localhost:5678 (set PORT to use another port)."
+    ],
+    "suggest": {
+        "Node.js": [
+            "nodejs-lts",
+            "nodejs",
+            "nvm",
+            "nvs"
         ]
     },
-    "bin": "node_modules/.bin/pqcc.cmd",
-    "uninstaller": {
-        "script": [
-            "npm uninstall -g pqcc --prefix \"$dir\""
-        ]
-    },
+    "url": "https://registry.npmjs.org/pqcc/-/pqcc-0.5.2.tgz",
+    "hash": "5f6b4213b9c1a81c470a5bb3b4c776eb33b671b952cda3a19e0bea756a60c273",
+    "extract_dir": "package",
+    "pre_install": [
+        "Set-Content -Path \"$dir\\pqcc.cmd\" -Encoding Ascii -Value @(",
+        "    '@ECHO off',",
+        "    'GOTO start',",
+        "    ':find_dp0',",
+        "    'SET dp0=%~dp0',",
+        "    'EXIT /b',",
+        "    ':start',",
+        "    'SETLOCAL',",
+        "    'CALL :find_dp0',",
+        "    'SET \"_prog=node\"',",
+        "    'SET PATHEXT=%PATHEXT:;.JS;=;%',",
+        "    'endLocal & goto #_undefined_# 2>NUL || title %COMSPEC% & \"%_prog%\"  \"%dp0%\\cli\\index.mjs\" %*'",
+        ")"
+    ],
+    "bin": "pqcc.cmd",
     "checkver": {
         "url": "https://registry.npmjs.org/pqcc/latest",
         "jsonpath": "$.version"
@@ -25,7 +45,7 @@
         "url": "https://registry.npmjs.org/pqcc/-/pqcc-$version.tgz",
         "hash": {
             "url": "https://registry.npmjs.org/pqcc/$version",
-            "jsonpath": "$.dist.shasum"
+            "regex": "\"integrity\"\\s*:\\s*\"sha512-([A-Za-z0-9+/]{86}==)\""
         }
     }
 }
